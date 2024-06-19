@@ -439,7 +439,10 @@ impl JobApi {
 
         let access_token = self.auth.access_token().await?;
 
-        let request = request_builder.bearer_auth(access_token).build()?;
+        let request = request_builder
+            .bearer_auth(access_token)
+            .header("Content-Length", 0)
+            .build()?;
 
         let resp = self.client.execute(request).await?;
 
